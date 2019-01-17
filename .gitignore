@@ -3,3 +3,5 @@
 .settings/
 nb-configuration.xml
 target/
+mvnw
+mvnw.cmd
