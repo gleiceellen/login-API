@@ -16,8 +16,8 @@ import javax.persistence.JoinColumn;
 public class Usuario {
 
 	@Id
-	@GeneratedValue()
-	private long id;
+	@GeneratedValue
+	private Long id;
 	private String nome;
 	private String email;
 	private String password;
@@ -29,7 +29,6 @@ public class Usuario {
 	private List<String> phones;
 
 	public Usuario(String nome, String email, String password) {
-	        this.id = Long.parseLong(UUID.randomUUID().toString());
 	        this.nome = nome;
 	        this.email = email;
 	        this.password = password;
