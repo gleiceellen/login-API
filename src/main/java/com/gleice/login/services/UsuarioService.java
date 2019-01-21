@@ -14,9 +14,10 @@ public class UsuarioService {
 	UsuarioRepository usuarioRepository;
 
 	public void salvar(Usuario usuario) {
-		if(usuario == null) throw new IllegalArgumentException();
+		if(usuario == null || usuario.getNome().isEmpty() || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty())
+			throw new IllegalArgumentException();
 
-		usuarioRepository.save(usuario);
+			usuarioRepository.save(usuario);
 	}
 
 }
