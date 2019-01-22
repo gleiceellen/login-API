@@ -2,7 +2,7 @@ package utils;
 
 import com.gleice.login.models.Usuario;
 
-public class ExistingEmailException extends Exception{
+public class ExistingEmailException extends RuntimeException{
 	
 	public static final String EMAIL_EXISTENTE_MSG = "Email já existe!";
 	 

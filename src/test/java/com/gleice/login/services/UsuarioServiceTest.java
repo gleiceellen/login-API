@@ -1,6 +1,5 @@
 package com.gleice.login.services;
 
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,9 +15,7 @@ import utils.ExistingEmailException;
 
 @RunWith(SpringRunner.class)
 public class UsuarioServiceTest {
-
-	private Usuario gleice;
-	private Usuario gleiceElen;
+	
 	@InjectMocks
 	private UsuarioService usuarioService;
 
@@ -28,12 +25,6 @@ public class UsuarioServiceTest {
 	@Rule
 	public ExpectedException excecaoEsperada = ExpectedException.none();
 
-	@Before
-	public void init() {
-		this.gleice = new Usuario("Gleice", "gleice@hotmail.com", "123");
-		this.gleiceElen = new Usuario("Gleice", "gleice@hotmail.com", "123");
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void deveRetornarExceptionCasoUsuarioSejaNulo() {
 		Usuario usuario = null;
@@ -42,13 +33,18 @@ public class UsuarioServiceTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void deveRetornarExceptionCasoUsuarioNãoContenhaTodosAtributos() {
+		Usuario gleice = new Usuario("Gleice", "gleice@hotmail.com", "123");
 		gleice.setEmail("");
 		usuarioService.salvar(gleice);
 	}
 	
 	@Test
 	public void deveRetornarExceptionCasoEmailJaExistaNoCadastro() {
+		Usuario gleice = new Usuario("Gleice", "gleice@hotmail.com", "123");
+		Usuario gleiceElen = new Usuario("Gleice", "gleice@hotmail.com", "123");
+		usuarioService.salvar(gleice);
 		usuarioService.salvar(gleiceElen);
+		
 		excecaoEsperada.expect(ExistingEmailException.class);
 	    excecaoEsperada.expectMessage(String.format(ExistingEmailException.EMAIL_EXISTENTE_MSG, gleiceElen.getEmail()));
 	}
