@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.gleice.login.models.Usuario;
 import com.gleice.login.repositories.UsuarioRepository;
-
-import utils.ExistingEmailException;
+import com.gleice.login.util.ExistingEmailException;
+import com.gleice.login.util.LoginAPIException;
 
 @Service
 public class UsuarioService {
@@ -16,22 +16,35 @@ public class UsuarioService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
-	public void salvar(Usuario usuario) throws ExistingEmailException {
+	public Usuario salvar(Usuario usuario){
 		if(usuario == null || usuario.getNome().isEmpty() || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty())
 			throw new IllegalArgumentException();
-		
-		List<Usuario> usuarios = this.lista();
-		
-		for(Usuario usu : usuarios) {
-			if(usu.getEmail().equals(usuario.getEmail()))
-				throw new ExistingEmailException(usuario);
+		if(emailExiste(usuario)){
+			throw new ExistingEmailException("Email não existe!");
+			
 		}
-
-			usuarioRepository.save(usuario);
+			return usuarioRepository.save(usuario);
+		
 	}
 	
 	public List<Usuario> lista(){
 		return (List<Usuario>) usuarioRepository.findAll();
+	}
+	
+	public boolean emailExiste(Usuario usuario) {
+		if(!usuarioRepository.filtrarPorEmail(usuario.getEmail()).isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+
+	public Usuario logar(Usuario usuario) {
+		List<Usuario> user = usuarioRepository.filtrarPorEmailESenha(usuario.getEmail(), usuario.getPassword());
+		if(user.isEmpty())
+			throw new LoginAPIException("Usuário não existe!");
+		Usuario usuarioLogado = user.get(0);
+		usuarioLogado.criarToken();
+		return usuarioLogado;
 	}
 
 }

@@ -39,14 +39,9 @@ public class UsuarioServiceTest {
 	}
 	
 	@Test
-	public void deveRetornarExceptionCasoEmailJaExistaNoCadastro() {
-		Usuario gleice = new Usuario("Gleice", "gleice@hotmail.com", "123");
-		Usuario gleiceElen = new Usuario("Gleice", "gleice@hotmail.com", "123");
-		usuarioService.salvar(gleice);
-		usuarioService.salvar(gleiceElen);
+	public void deveRetornarExceptionCasoEmailExistente() {
 		
-		excecaoEsperada.expect(ExistingEmailException.class);
-	    excecaoEsperada.expectMessage(String.format(ExistingEmailException.EMAIL_EXISTENTE_MSG, gleiceElen.getEmail()));
 	}
+	
 	
 }
