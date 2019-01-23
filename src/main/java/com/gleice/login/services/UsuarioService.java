@@ -19,10 +19,9 @@ public class UsuarioService {
 	public Usuario salvar(Usuario usuario){
 		if(usuario == null || usuario.getNome().isEmpty() || usuario.getEmail().isEmpty() || usuario.getPassword().isEmpty())
 			throw new IllegalArgumentException();
-		if(emailExiste(usuario)){
-			throw new ExistingEmailException("Email não existe!");
-			
-		}
+		if(emailExiste(usuario))
+			throw new ExistingEmailException("Email já existe!");
+		
 			return usuarioRepository.save(usuario);
 		
 	}
@@ -41,10 +40,15 @@ public class UsuarioService {
 	public Usuario logar(Usuario usuario) {
 		List<Usuario> user = usuarioRepository.filtrarPorEmailESenha(usuario.getEmail(), usuario.getPassword());
 		if(user.isEmpty())
-			throw new LoginAPIException("Usuário não existe!");
+			throw new LoginAPIException("Usuário e/ou senha inválidos");
 		Usuario usuarioLogado = user.get(0);
 		usuarioLogado.criarToken();
 		return usuarioLogado;
+	}
+
+	public Usuario perfil(Usuario usuario) {
+		usuario.validarToken(usuario.getToken());
+		return null;
 	}
 
 }

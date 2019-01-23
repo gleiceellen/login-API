@@ -1,5 +1,7 @@
 package com.gleice.login.controllers.response;
 
+import org.springframework.http.HttpStatus;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.gleice.login.models.Usuario;
@@ -14,7 +16,7 @@ public class Resposta {
     	this.usuario = usuario;
     }
     
-    public Resposta(String mensagem) {
+    public Resposta(String mensagem, HttpStatus status) {
     	this.mensagem = mensagem;
     }
 

@@ -2,6 +2,7 @@ package com.gleice.login.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -79,7 +80,19 @@ public class Usuario {
 	}
 	
 	public void criarToken() {
+		this.token = UUID.randomUUID().toString();
+	}
+	
+	public String getToken() {
+		return this.token;
+	}
+	
+	public boolean validarToken(String token) {
+		if(this.token.equals(token));
+		boolean retorno = true;
 		
+		retorno = false;
+		return retorno;
 	}
 
 }
