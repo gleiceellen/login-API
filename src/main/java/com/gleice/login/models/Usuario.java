@@ -87,12 +87,5 @@ public class Usuario {
 		return this.token;
 	}
 	
-	public boolean validarToken(String token) {
-		if(this.token.equals(token));
-		boolean retorno = true;
-		
-		retorno = false;
-		return retorno;
-	}
 
 }

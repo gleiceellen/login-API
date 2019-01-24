@@ -13,4 +13,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario,Long>{
 	
 	@Query(value="SELECT u FROM Usuario u WHERE u.email=?1 and u.password=?2")
     public List<Usuario> filtrarPorEmailESenha(String email, String password);
+	
+	@Query(value="SELECT u FROM Usuario u WHERE u.token=?1")
+    public List<Usuario> filtrarPorToken(String token);
 }

@@ -9,6 +9,7 @@ import com.gleice.login.models.Usuario;
 import com.gleice.login.repositories.UsuarioRepository;
 import com.gleice.login.util.ExistingEmailException;
 import com.gleice.login.util.LoginAPIException;
+import com.gleice.login.util.NullTokenException;
 
 @Service
 public class UsuarioService {
@@ -47,8 +48,17 @@ public class UsuarioService {
 	}
 
 	public Usuario perfil(Usuario usuario) {
-		usuario.validarToken(usuario.getToken());
-		return null;
+		if(validarToken(usuario))
+			throw new NullTokenException("Não autorizado!");
+		
+			return usuario;
+	}
+	
+	public boolean validarToken(Usuario usuario) {
+		if(!usuarioRepository.filtrarPorToken(usuario.getToken()).isEmpty())
+			return true;
+
+		return false;
 	}
 
 }
