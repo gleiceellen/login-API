@@ -1,5 +1,6 @@
 package com.gleice.login.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,7 +39,6 @@ public class Usuario {
 		this.nome = nome;
         this.email = email;
         this.password = password;
-	       
     }
 	
 	public Usuario() {
@@ -47,6 +47,14 @@ public class Usuario {
         this.last_login = new Date();
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public List<Phone> getPhones() {
 		return phones;
 	}
@@ -85,6 +93,22 @@ public class Usuario {
 	
 	public String getToken() {
 		return this.token;
+	}
+
+	public Date getModified() {
+		return modified;
+	}
+
+	public void setModified(Date modified) {
+		this.modified = modified;
+	}
+
+	public Date getLast_login() {
+		return last_login;
+	}
+
+	public void setLast_login(Date last_login) {
+		this.last_login = last_login;
 	}
 	
 
