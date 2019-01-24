@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.gleice.login.models.Usuario;
-import com.gleice.login.util.Mensagem;
 
 import utils.ExistingEmailException;
 
@@ -18,9 +17,6 @@ public class UsuarioServiceTest {
 	
 	@InjectMocks
 	private UsuarioService usuarioService;
-
-	@InjectMocks
-	private Mensagem mensagem;
 	
 	@Rule
 	public ExpectedException excecaoEsperada = ExpectedException.none();
